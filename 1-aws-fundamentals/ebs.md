@@ -18,43 +18,56 @@
     * You can increase the capacity of the drive over time
 
 #### EBS Volume Types
-- EBS Volumes come in 4 types 
-- GP2 (SSD): General purpose SSD volume that balances price and performance for a wide variety of workloads 
-- IO1 (SSD): Highest-performance SSD volume for mission-critical low-latency or high-throughput workloads 
-- ST1 (HDD): Low cost HDD volume designed for frequently accessed, throughput-intensive workloads 
-- SC1 (HDD): Lowest cost HDD volume designed for less frequently accessed workloads 
+- EBS Volumes come in several types
+    - gp3 (SSD): General purpose SSD volume that balances price and performance for a wide variety of workloads
+    - gp2 (SSD): Older generation of general purpose SSD volumes, offers burst performance
+    - io2 Block Express (SSD): Highest-performance SSD volume for mission-critical low-latency or high-throughput workloads
+    - io1 (SSD): Older generation of high-performance IOPS SSD volumes
+    - st1 (HDD): Low cost HDD volume designed for frequently accessed, throughput-intensive workloads 
+    - sc1 (HDD): Lowest cost HDD volume designed for less frequently accessed workloads
+    - simple (Magnetic): Previous generation of magnetic volumes offered at the lowest price
 - EBS Volumes are characterized in Size | Throughput | IOPS
 - When in doubt always consult the AWS documentation
--  Only GP2 and IO1 can be used as boot volumes
+-  Only gp2, io1, and simple can be used as boot volumes
 
 #### EBS Volume Types Use Cases
-1. GP2
+1. gp3
 - Recommended for most workloads 
 - System boot volumes
 - Virtual desktops
 - Low-latency interactive apps
 - Development and test environments
 
-2. IO1
+2. io2 Block Express
 - Critical business applications that require sustained IOPS performance, or more than 16,000 IOPS per volume (gp2 limit)
 -  Large database workloads, such as: MongoDB, Cassandra, Microsoft SQL Server, MySQL, PostgreSQL, Oracle
 
-3. ST1
+3. st1
 - Streaming workloads requiring consistent, fast throughput at a low price. 
 - Big data, Data warehouses, Log processing
 - Apache Kafka
- - Cannot be a boot volume
+- Cannot be a boot volume
  
-4. SC1
+4. sc1
 - Throughput-oriented storage for large volumes of data that is infrequently accessed
 - Scenarios where the lowest storage cost is important
 - Cannot be a boot volume
+
+5. simple
+- Smaller datasets where data is accessed infrequently
+- Cases where performance is not crucial
+
+6. io1 and gp2
+- No longer recommended for most workloads
+- Both offer equal or worse specs than their newer counterparts.
+- Still offered for backwards compatibility
 
 #### EBS Volume Types Summary
 - gp2: General Purpose Volumes (cheap)
 - io1: Provisioned IOPS (expensive)
 - st1: Throughput Optimized HDD
 - sc1: Cold HDD, Infrequently accessed data
+- simple: Magnetic volumes for small workloads
 
 #### EBS Volume Resizing
 * Feb 2017: You can resize your EBS Volumes
@@ -106,7 +119,7 @@ EBS Snapshots
 
 #### EBS Volume Types - Use cases 
 
-* Big Data / Data Warehouses / Log Processing : ST1 (HDD)
-* Lowest storage cost : SC1 (HDD)
-* NoSQL such as MongoDB, Cassandra or MSQL : IO1 (SSD)
-* Low latency applications : GP2 (SSD) 
+* Big Data / Data Warehouses / Log Processing : st1 (HDD)
+* Lowest storage cost : sc1 (HDD)
+* NoSQL such as MongoDB, Cassandra or MSQL : io2 Block Express (SSD)
+* Low latency applications : gp3 (SSD) 
